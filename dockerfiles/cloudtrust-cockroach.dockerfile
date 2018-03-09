@@ -37,7 +37,8 @@ RUN wget ${cockroach_release} -O cockroach.tgz && \
 WORKDIR /cloudtrust/cockroach-service
 RUN install -v -o cockroach -g cockroach -m 644 deploy/etc/systemd/system/cockroach.service /etc/systemd/system/cockroach.service && \
     install -d -v -o root -g root -m 644 /etc/systemd/system/cockroach.service.d && \
-    install -v -o root -g root -m 644 deploy/etc/systemd/system/cockroach.service.d/limit.conf /etc/systemd/system/cockroach.service.d/limit.conf
+    install -v -o root -g root -m 644 deploy/etc/systemd/system/cockroach.service.d/limit.conf /etc/systemd/system/cockroach.service.d/limit.conf && \
+    install -d -v -o cockroach -g cockroach -m0755 /var/lib/cockroach 
 
 ##
 ##  CONFIG
@@ -47,8 +48,11 @@ WORKDIR /cloudtrust/config
 RUN git checkout ${config_git_tag}
 
 WORKDIR /cloudtrust/config
+# Nothing yet
 
 
 # Enable services
 RUN systemctl enable cockroach.service && \
     systemctl enable monit.service
+
+VOLUME ["/var/lib/cockroach"]
