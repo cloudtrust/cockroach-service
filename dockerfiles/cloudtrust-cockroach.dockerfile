@@ -5,6 +5,9 @@ ARG cockroach_release
 ARG config_git_tag
 ARG config_repo
 
+RUN dnf -y install nginx && \
+    dnf clean all
+
 RUN groupadd cockroach && \
     useradd -m -s /sbin/nologin -g cockroach cockroach && \
     install -d -v -m755 /opt/cockroach -o root -g root && \
