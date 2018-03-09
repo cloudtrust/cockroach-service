@@ -20,8 +20,13 @@ RUN git checkout ${cockroach_service_git_tag}
 WORKDIR /cloudtrust/cockroach-service
 # Install regular stuff. Systemd, monit...
 RUN install -v -m0644 deploy/etc/security/limits.d/* /etc/security/limits.d/ && \
-    install -v -m0644 deploy/etc/monit.d/* /etc/monit.d/ 
-    
+    install -v -m0644 deploy/etc/monit.d/* /etc/monit.d/ && \
+    install -v -m0644 -D deploy/etc/nginx/conf.d/* /etc/nginx/conf.d/ && \
+    install -v -m0644 deploy/etc/nginx/nginx.conf /etc/nginx/nginx.conf && \
+    install -v -m0644 deploy/etc/nginx/mime.types /etc/nginx/mime.types && \
+    install -v -o root -g root -m 644 -d /etc/systemd/system/nginx.service.d && \
+    install -v -o root -g root -m 644 deploy/etc/systemd/system/nginx.service.d/limit.conf /etc/systemd/system/nginx.service.d/limit.conf
+
 ##
 ##  COCKROACH
 ##
@@ -53,6 +58,7 @@ WORKDIR /cloudtrust/config
 
 # Enable services
 RUN systemctl enable cockroach.service && \
+    systemctl enable nginx.service && \
     systemctl enable monit.service
 
 VOLUME ["/var/lib/cockroach"]
