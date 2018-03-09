@@ -1,0 +1,12 @@
+[Unit]
+Description=CockroachDB - The SQL database for global cloud services
+After=network.target
+
+[Service]
+Type=simple
+User=cockroach
+Group=cockroach
+ExecStart=/opt/cockroach/cockroach start --insecure --host=localhost
+
+[Install]
+WantedBy=multi-user.target
