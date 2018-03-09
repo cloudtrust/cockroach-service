@@ -38,7 +38,7 @@ WORKDIR /cloudtrust/cockroach-service
 RUN install -v -o cockroach -g cockroach -m 644 deploy/etc/systemd/system/cockroach.service /etc/systemd/system/cockroach.service && \
     install -d -v -o root -g root -m 644 /etc/systemd/system/cockroach.service.d && \
     install -v -o root -g root -m 644 deploy/etc/systemd/system/cockroach.service.d/limit.conf /etc/systemd/system/cockroach.service.d/limit.conf && \
-    install -d -v -o cockroach -g cockroach -m 644 /var/lib/cockroach 
+    install -d -v -o cockroach -g cockroach -m 744 /var/lib/cockroach 
 
 ##
 ##  CONFIG
