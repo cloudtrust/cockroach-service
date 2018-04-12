@@ -5,7 +5,7 @@ ARG cockroach_release
 ARG config_git_tag
 ARG config_repo
 
-RUN dnf -y install nginx && \
+RUN dnf -y install ncurses-compat-libs.x86_64 nginx && \
     dnf clean all
 
 RUN groupadd cockroach && \
