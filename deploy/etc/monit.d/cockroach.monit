@@ -1,4 +1,4 @@
 check process cockroach matching "cockroach"
   start program = "/usr/bin/systemctl start cockroach.service"
   stop program = "/usr/bin/systemctl stop cockroach.service"
-  if failed host 127.0.0.1 port 8080 protocol HTTP request /health with timeout 10 seconds then restart
+  if failed host 127.0.0.1 port 8080 protocol HTTP method GET request /health with timeout 10 seconds then restart
